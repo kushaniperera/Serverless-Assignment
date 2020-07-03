@@ -1,0 +1,51 @@
+service: sls1
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-south-1
+  httpApi:
+    cors: true # to enable connection between the backend and frontend
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+    - httpApi:
+        method: GET
+        path: /hello
+  
+  todos:
+    handler: handler.todos
+    events:
+    - httpApi:
+        method: GET
+        path: /todos
+
+  createTodo:
+    handler: handler.createTodo
+    events:
+    - httpApi:
+        method: POST
+        path: /todos
+
+  getTodo:
+    handler: handler.getTodo
+    events:
+    - httpApi:
+        method: GET
+        path: /todos/{id}
+
+  updateTodo:
+    handler: handler.updateTodo
+    events:
+    - httpApi:
+        method: PUT
+        path: /todos/{id}
+
+  deleteTodo:
+    handler: handler.deleteTodo
+    events:
+    - httpApi:
+        method: DELETE
+        path: /todos/{id}
